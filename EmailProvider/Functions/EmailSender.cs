@@ -12,7 +12,7 @@ namespace EmailProvider.Functions;
 public class EmailSender(ILoggerFactory loggerFactory, EmailService emailService)
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<EmailSender>();
-    private readonly EmailService _emailService =emailService;
+    private readonly EmailService _emailService = emailService;
 
     [Function("EmailSender")]
     public async Task Run([CosmosDBTrigger(
@@ -31,10 +31,9 @@ public class EmailSender(ILoggerFactory loggerFactory, EmailService emailService
 
                 foreach (var document in documents)
                 {
-                    var emailDocument = JsonConvert.DeserializeObject<EmailDocument>(document.ToString());
-
-                    if (emailDocument != null)
+                    if (document.Email != null)
                     {
+
                         var emailRequest = _emailService.GenerateEmailRequest(document);
                         if (emailRequest != null)
                         {

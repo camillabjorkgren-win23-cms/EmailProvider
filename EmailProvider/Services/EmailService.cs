@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 
 
 namespace EmailProvider.Services;
-public class EmailService(ILogger logger, EmailClient emailClient)
+public class EmailService(ILogger<EmailService> logger, EmailClient emailClient)
 {
-    private readonly ILogger _logger = logger;
+    private readonly ILogger<EmailService> _logger = logger;
     private readonly EmailClient _emailClient = emailClient;
     public EmailRequest GenerateEmailRequest(EmailDocument document)
     {
