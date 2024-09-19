@@ -9,11 +9,10 @@ using Newtonsoft.Json;
 
 namespace EmailProvider.Functions;
 
-public class EmailSender(ILoggerFactory loggerFactory, EmailClient emailClient)
+public class EmailSender(ILoggerFactory loggerFactory, EmailService emailService)
 {
     private readonly ILogger _logger = loggerFactory.CreateLogger<EmailSender>();
-    private readonly EmailClient _emailClient = emailClient;
-    private readonly EmailService _emailService;
+    private readonly EmailService _emailService =emailService;
 
     [Function("EmailSender")]
     public async Task Run([CosmosDBTrigger(
@@ -37,7 +36,7 @@ public class EmailSender(ILoggerFactory loggerFactory, EmailClient emailClient)
                     if (emailDocument != null)
                     {
                         var emailRequest = _emailService.GenerateEmailRequest(document);
-                        if(emailRequest != null)
+                        if (emailRequest != null)
                         {
                             bool success = _emailService.SendEmail(emailRequest);
 
