@@ -44,6 +44,7 @@ namespace EmailProvider.Functions
                                 PartitionKey = formType,
                                 Name = formData.Name,
                             };
+                            _dataContext.FormDatas.Add(formDataEntity);
                             await _dataContext.SaveChangesAsync();
                             _logger.LogInformation("Form data saved successfully");
                             return true;
