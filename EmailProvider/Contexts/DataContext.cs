@@ -9,7 +9,5 @@ using System.Threading.Tasks;
 namespace EmailProvider.Contexts;
 public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-
-    public DbSet<EmailRequestEntity> EmailRequests { get; set; }
-
+    public DbSet<FormDataEntity> FormDatas { get; set; }
 }
