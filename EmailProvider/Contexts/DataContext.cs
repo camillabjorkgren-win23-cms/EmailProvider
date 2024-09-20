@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 namespace EmailProvider.Contexts;
 public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
+    public DbSet<FormDataEntity> FormDatas { get; set; }
 
-    public DbSet<EmailRequestEntity> EmailRequests { get; set; }
-
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<FormDataEntity>().ToContainer("FormDatas").HasPartitionKey(x => x.PartitionKey);
+    }
 }

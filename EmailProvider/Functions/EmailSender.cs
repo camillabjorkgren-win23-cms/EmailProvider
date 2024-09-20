@@ -17,7 +17,7 @@ public class EmailSender(ILoggerFactory loggerFactory, EmailService emailService
     [Function("EmailSender")]
     public async Task Run([CosmosDBTrigger(
         databaseName: "OnatrixDatabase",
-        containerName: "EmailRequests",
+        containerName: "FormDatas",
         Connection = "Cosmos_Db_ConnectionString",
         LeaseContainerName = "leases",
         CreateLeaseContainerIfNotExists = true)] IReadOnlyList<EmailDocument> documents)
