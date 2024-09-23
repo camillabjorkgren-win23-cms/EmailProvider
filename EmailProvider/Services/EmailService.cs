@@ -13,7 +13,7 @@ public class EmailService(ILogger<EmailService> logger, EmailClient emailClient)
     {
         try
         {
-            if (!string.IsNullOrEmpty(document.Email) && !string.IsNullOrEmpty(document.Name))
+            if (!string.IsNullOrEmpty(document.Email))
             {
                 var emailRequest = new EmailRequest()
                 {
@@ -32,7 +32,7 @@ public class EmailService(ILogger<EmailService> logger, EmailClient emailClient)
                                     <h1 style='font-weight: 400;'>Thank you for your email</h1>
                                 </div>
                                 <div style='background-color: #f7f7f7; padding: 1rem 2rem;'>
-                                    <p> Dear {document.Name},</p>
+                                       <p> Dear {(string.IsNullOrEmpty(document.Name) ? "customer" : document.Name)},</p>
                                     <p> We have received your request through our website Onatrix. We will get back to you shortly</p>
                                    
                                    
@@ -44,10 +44,11 @@ public class EmailService(ILogger<EmailService> logger, EmailClient emailClient)
                     </body>
                 </html>
                         ",
-                    PlainText = $"Thank you {document.Name}, we have received your request through Onatrix.com. We will get back to you shortly. This email can not receive replies. For more information, see our website Onatrix.com"
+                    PlainText = $"Thank you {(string.IsNullOrEmpty(document.Name) ? "customer" : document.Name)}, we have received your request through Onatrix.com. We will get back to you shortly. This email can not receive replies. For more information, see our website Onatrix.com"
                 };
                 return emailRequest;
             }
+
         }
         catch (Exception ex)
         {
